@@ -1,6 +1,10 @@
 # Bot
 A stupid wechat bot
 
+demo:
+
+![qrcode](qrcode.jpeg)
+
 ## run
 ```bash
 python bot.py
