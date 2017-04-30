@@ -27,10 +27,13 @@ bot = wxpy.Bot(console_qr=True, cache_path='/data/wxpy.pkl')
 
 group = bot.groups()
 
-@bot.register(chats=bot.groups()+bot.friends())
+def help(msg):
+    return ".r 骰子个数d点数，\n" \
+           "如「 .r 2d6 」即为掷2个6点的骰子"
+
 def roll_dice(msg):
     if msg.type == wxpy.TEXT and msg.text.startswith(".r"):
-        sender = msg.member.name
+        sender = msg.member.name if msg.member else msg.sender.name
         text = msg.text[2:].strip()
         try:
             result = roll(text)
@@ -41,5 +44,12 @@ def roll_dice(msg):
                        "总和为: {}".format(sender, text, str(result), str(sum(result)))
         except Exception:
             pass
+
+@bot.register(chats=bot.groups()+bot.friends())
+def entrypoint(msg):
+    if msg.type == wxpy.TEXT and msg.text.startswith(".r"):
+        return roll_dice(msg)
+    elif msg.type == wxpy.TEXT and msg.text == '.help':
+        return help(msg)
 
 bot.join()
