@@ -4,7 +4,7 @@ import re
 
 dice_pattern = re.compile(r'''([+-]{0,1}(\d+)[Dd](\d+))|([+-]{0,1}(\d+))''')
 
-def roll(text):
+def roll(text, limit=1000):
     groups = dice_pattern.findall(text)
     result = []
     for group in groups:
@@ -14,7 +14,10 @@ def roll(text):
             else:
                 sign = 1
             for i in range(int(group[1])):
-                result.append(sign * random.randint(1, int(group[2])))
+                n = int(group[2])
+                if n > limit:
+                    return []
+                result.append(sign * random.randint(1, n))
         elif group[3]:
             result.append(int(group[3]))
     return result
@@ -38,5 +41,5 @@ def roll_dice(msg):
                        "总和为: {}".format(sender, text, str(result), str(sum(result)))
         except Exception:
             pass
-        
+
 bot.join()
