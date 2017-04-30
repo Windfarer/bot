@@ -34,7 +34,7 @@ def help(msg):
 def roll_dice(msg):
     if msg.type == wxpy.TEXT and msg.text.startswith(".r"):
         sender = msg.member.name if msg.member else msg.sender.name
-        text = msg.text[2:].strip().rsplit(2)
+        text = msg.text[2:].strip()
         try:
             result = roll(text.split(" ", 2)[0])
             if result:
