@@ -20,7 +20,7 @@ def roll(text):
     return result
 
 
-bot = wxpy.Bot(console_qr=True, cache_path=True)
+bot = wxpy.Bot(console_qr=True, cache_path='/data/wxpy.pkl')
 
 group = bot.groups()
 
@@ -29,10 +29,14 @@ def roll_dice(msg):
     if msg.type == wxpy.TEXT and msg.text.startswith(".r"):
         sender = msg.member.name
         text = msg.text[2:].strip()
-        result = roll(text)
-        if result:
-            print(result)
-            return "{} 掷了骰子「 {} 」\n" \
-                   "掷出: {} \n" \
-                   "总和为: {}".format(sender, text, str(result), str(sum(result)))
+        try:
+            result = roll(text)
+            if result:
+                print(result)
+                return "{} 掷了骰子「 {} 」\n" \
+                       "掷出: {} \n" \
+                       "总和为: {}".format(sender, text, str(result), str(sum(result)))
+        except Exception:
+            pass
+        
 bot.join()
