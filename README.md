@@ -10,6 +10,8 @@ python bot.py
 
 roll a dice, for TRPG
 
-```bash
+send message to bot
+
+```
 .r 1d6+5d20-10
 ```
