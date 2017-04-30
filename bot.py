@@ -21,8 +21,8 @@ def roll(text, limit=1000):
                 sub_result.append(sign * random.randint(1, n))
         elif group[3]:
             sub_result.append(int(group[3]))
+        result.append(sub_result)
     return result
-
 
 bot = wxpy.Bot(console_qr=True, cache_path='/data/wxpy.pkl')
 
@@ -39,15 +39,13 @@ def roll_dice(msg):
     if msg.type == wxpy.TEXT and msg.text.startswith(".r"):
         sender = msg.member.name if msg.member else msg.sender.name
         text = msg.text[2:].strip()
-        try:
-            result = roll(text.split(" ", 2)[0])
-            if result:
-                print(result)
-                return "{} 掷了骰子「 {} 」\n" \
-                       "掷出: {} \n" \
-                       "总和为: {}".format(sender, text, str(result), str(sum([sum(i) for i in result])))
-        except Exception:
-            pass
+        print(text)
+        result = roll(text.split(" ", 2)[0])
+        if result:
+            print(result)
+            return "{} 掷了骰子「 {} 」\n" \
+                   "掷出: {} \n" \
+                   "总和为: {}".format(sender, text, str(result)[1:-1], str(sum([sum(i) for i in result])))
 
 @bot.register(msg_types=wxpy.TEXT)
 def entrypoint(msg):
