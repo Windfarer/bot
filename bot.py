@@ -28,8 +28,8 @@ bot = wxpy.Bot(console_qr=True, cache_path='/data/wxpy.pkl')
 group = bot.groups()
 
 def help(msg):
-    return ".r 骰子个数d点数，\n" \
-           "如「 .r 2d6 」即为掷2个6点的骰子"
+    return ".r 骰子个数d面数，\n" \
+           "如「 .r 2d6 」即为掷2个6面的骰子"
 
 def roll_dice(msg):
     if msg.type == wxpy.TEXT and msg.text.startswith(".r"):
