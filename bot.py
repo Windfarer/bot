@@ -8,18 +8,19 @@ def roll(text, limit=1000):
     groups = dice_pattern.findall(text)
     result = []
     for group in groups:
+        sub_result = []
         if group[0]:
             if group[0].startswith('-'):
                 sign = -1
             else:
                 sign = 1
-            for i in range(int(group[1])):
+            for _ in range(int(group[1])):
                 n = int(group[2])
                 if n > limit:
                     return []
-                result.append(sign * random.randint(1, n))
+                sub_result.append(sign * random.randint(1, n))
         elif group[3]:
-            result.append(int(group[3]))
+            sub_result.append(int(group[3]))
     return result
 
 
@@ -44,7 +45,7 @@ def roll_dice(msg):
                 print(result)
                 return "{} 掷了骰子「 {} 」\n" \
                        "掷出: {} \n" \
-                       "总和为: {}".format(sender, text, str(result), str(sum(result)))
+                       "总和为: {}".format(sender, text, str(result), str(sum([sum(i) for i in result])))
         except Exception:
             pass
 
