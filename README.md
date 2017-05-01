@@ -7,6 +7,7 @@ demo:
 
 ## Run
 ```bash
+export HEWEATHER_KEY="your heweather key"
 python bot.py
 ```
 
