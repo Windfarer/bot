@@ -5,13 +5,14 @@ demo:
 
 ![qrcode](qrcode.jpeg)
 
-## run
+## Run
 ```bash
 python bot.py
 ```
 
-## usage
+## Usage
 
+### 掷骰子
 给bot发如下消息可以掷骰子。适用于 TRPG 跑团 (DnD, CoC, etc.) 中掷骰子用。 
 
 基础用法，d 前面的数字为掷的次数，后面的数字为骰子面数，下面的即为投 2 次 6 面骰子。
@@ -36,4 +37,26 @@ python bot.py
 
 ```
 .r 1d100 群主今天女装的概率
+```
+
+### 天气及空气质量
+
+查询天气
+
+```
+.tq 上海
+```
+
+```
+.tq beijing
+```
+
+查询空气质量
+
+```
+.aqi 上海 
+```
+
+```
+.aqi beijing
 ```
