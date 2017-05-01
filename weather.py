@@ -25,7 +25,7 @@ def _parse_forecast(data, n):
 WEATHER_TEMPLATE = jinja2.Template(
 """{{city}} 天气\n{% for item in items %}今天: {% if item.day_cond_d|string() == item.day_cond_n|string() -%} \
 {{item.day_cond_n}} {%- else -%} {{item.day_cond_d}} 转 {{item.day_cond_n}} {%- endif -%}, \
-最高 {{item.day_tmp_min}} 度, 最低 {{item.day_tmp_min}} 度\n{% endfor -%}"""
+最高 {{item.day_tmp_max}} 度, 最低 {{item.day_tmp_min}} 度\n{% endfor -%}"""
 )
 
 def get_weather_forecast_msg(city_str):
