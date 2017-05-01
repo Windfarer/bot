@@ -1,28 +1,7 @@
-import random
 import wxpy
-import re
-
-dice_pattern = re.compile(r'''([+-]{0,1}(\d+)[Dd](\d+))|([+-]{0,1}(\d+))''')
-
-def roll(text, limit=1000):
-    groups = dice_pattern.findall(text)
-    result = []
-    for group in groups:
-        sub_result = []
-        if group[0]:
-            if group[0].startswith('-'):
-                sign = -1
-            else:
-                sign = 1
-            for _ in range(int(group[1])):
-                n = int(group[2])
-                if n > limit:
-                    return []
-                sub_result.append(sign * random.randint(1, n))
-        elif group[3]:
-            sub_result.append(int(group[3]))
-        result.append(sub_result)
-    return result
+import jinja2
+from roll import roll
+from weather import get_weather_forecast_msg, get_aqi_msg
 
 bot = wxpy.Bot(console_qr=True, cache_path='/data/wxpy.pkl')
 
@@ -36,21 +15,32 @@ def help(msg):
     return HELP_TEXT
 
 def roll_dice(msg):
-    if msg.type == wxpy.TEXT and msg.text.startswith(".r"):
-        sender = msg.member.name if msg.member else msg.sender.name
-        text = msg.text[2:].strip()
-        print(text)
-        result = roll(text.split(" ", 2)[0])
-        if result:
-            print(result)
-            return "{} 掷了骰子「 {} 」\n" \
-                   "掷出: {} \n" \
-                   "总和为: {}".format(sender, text, str(result)[1:-1], str(sum([sum(i) for i in result])))
+    sender = msg.member.name if msg.member else msg.sender.name
+    text = msg.text[2:].strip()
+    print(text)
+    result = roll(text.split(" ", 2)[0])
+    if result:
+        print(result)
+        return "{} 掷了骰子「 {} 」\n" \
+               "掷出: {} \n" \
+               "总和为: {}".format(sender, text, str(result)[1:-1], str(sum([sum(i) for i in result])))
+
+def get_weather_forecast(msg):
+    city_str = msg.text[4:].strip()
+    return get_weather_forecast_msg(city_str=city_str)
+
+def get_aqi(msg):
+    city_str = msg.text[5:].strip()
+    return get_aqi_msg(city_str)
 
 @bot.register(msg_types=wxpy.TEXT)
 def entrypoint(msg):
-    if msg.text.startswith(".r"):
+    if msg.text.startswith(".r "):
         return roll_dice(msg)
+    if msg.text.startswith(".tq "):
+        return get_weather_forecast(msg)
+    if msg.text.startswith(".aqi "):
+        return get_aqi(msg)
     elif msg.text == '.help':
         return help(msg)
 
