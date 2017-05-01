@@ -11,7 +11,8 @@ HELP_TEXT = "使用说明:\n" \
             "【.r 骰子个数d面数】" \
             "如 .r 2d6 即为掷2个6面骰子\n" \
             "【.tq 城市】查询天气\n" \
-            "【.aqi 城市】查询空气质量"
+            "【.aqi 城市】查询空气质量\n" \
+            "源代码: https://github.com/Windfarer/bot"
 
 def help(msg):
     return HELP_TEXT
