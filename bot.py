@@ -8,8 +8,10 @@ bot = wxpy.Bot(console_qr=True, cache_path='/data/wxpy.pkl')
 group = bot.groups()
 
 HELP_TEXT = "使用说明:\n" \
-            ".r 骰子个数d面数，\n" \
-           "如「 .r 2d6 」即为掷2个6面的骰子"
+            "【.r 骰子个数d面数】" \
+            "如 .r 2d6 即为掷2个6面骰子\n" \
+            "【.tq 城市】查询天气\n" \
+            "【.aqi 城市】查询空气质量"
 
 def help(msg):
     return HELP_TEXT
