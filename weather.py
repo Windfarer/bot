@@ -47,8 +47,7 @@ AQI_TEMPLATE = jinja2.Template(
 "PM10: {{pm10}}\n"
 "CO: {{co}}\n"
 "NO2: {{no2}}\n"
-"O3: {{o3}}\n"
-"PM10: {{pm10}}"
+"O3: {{o3}}"
 )
 
 def get_aqi_msg(city_str):
