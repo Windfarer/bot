@@ -29,7 +29,7 @@ WEATHER_TEMPLATE = jinja2.Template(
 "{% if loop.index == 3 %}后天:{% endif %}"
 " {% if item.day_cond_d|string() == item.day_cond_n|string() -%}"
 "{{item.day_cond_n}} {%- else -%} {{item.day_cond_d}} 转 {{item.day_cond_n}} {%- endif -%}, "
-"最高 {{item.day_tmp_max}} 度, 最低 {{item.day_tmp_min}} 度\n{% endfor -%}"
+"最高 {{item.day_tmp_max}} ℃, 最低 {{item.day_tmp_min}} ℃\n{% endfor -%}"
 )
 
 def get_weather_forecast_msg(city_str):
